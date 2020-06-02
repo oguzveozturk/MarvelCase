@@ -78,7 +78,7 @@ class NetworkRequest<ReqM: Codable, RM: Codable>: Request {
     }
     
     func createURLString() {
-        let baseUrl = URL(string: "https://gateway.marvel.com/v1/public")!
+        let baseUrl = URL(string: "http://gateway.marvel.com/v1/public")!
         path = baseUrl.relativeString + endpoint + "&ts=\(ts)&" + "apikey=\(publicAPIKEY)&" + "hash=\(md5Hex)"
     }
 }

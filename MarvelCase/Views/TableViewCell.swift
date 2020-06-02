@@ -10,10 +10,28 @@ import UIKit
 
 final class TableViewCell: UITableViewCell {
     
+    var data: Results? {
+        didSet {
+            guard let data = data else { return }
+            characterNameLabel.text = data.name
+            if let url = URL(string: data.thumbnail.path + "/portrait_small." + data.thumbnail.extension) {
+                    
+                do {
+                    let data = try Data(contentsOf: url)
+                    if let safeImage = UIImage(data: data) { photo.image = safeImage }
+                    
+                } catch { print(error) }
+              }
+            
+        }
+    }
+    
     lazy var photo: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
+        iv.layer.cornerRadius = 5
+        iv.clipsToBounds = true
         return iv
     }()
     
@@ -40,7 +58,7 @@ final class TableViewCell: UITableViewCell {
             photo.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
             photo.widthAnchor.constraint(equalTo: photo.widthAnchor),
             photo.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            photo.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15)
+            photo.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
         ])
         
         addSubview(characterNameLabel)
