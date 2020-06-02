@@ -10,6 +10,14 @@ import UIKit
 
 final class CharacterListViewController: UIViewController {
     
+    var data: [Results]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +31,14 @@ final class CharacterListViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Heros"
         setupLayouts()
+        APIManager.shared.requestForCharacterList(sender: self, selector: #selector(response(data:)), offset: "0")
+    }
+    
+    @objc func response(data: Any) {
+        if let response = data as? CharacterListResponseModel {
+            print(response)
+            self.data = response.data.results
+        }
     }
     
 }
@@ -43,11 +59,12 @@ extension CharacterListViewController {
 //MARK: - TableViewDelegateMethods
 extension CharacterListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return data?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
+        cell.characterNameLabel.text = data?[indexPath.item].name
         return cell
     }
 
