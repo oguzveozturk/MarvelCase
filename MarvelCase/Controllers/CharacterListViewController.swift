@@ -10,33 +10,22 @@ import UIKit
 
 final class CharacterListViewController: UIViewController {
     
-    fileprivate var activityIndicator: LoadingIndicator!
-    
     private var offSet = 0
     
-    private var data = [Results]() {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.tableView.reloadData()
-                self?.activityIndicator.stop()
-                self?.openingIndicator.stopAnimating()
-                if let empty = self?.data.isEmpty {
-                    self?.tableView.isHidden = empty
-                }
-            }
-        }
-    }
+    private var data = CharacterListViewModel()
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.delegate = self
         table.dataSource = self
-        table.register(TableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(CharacterTableViewCell.self, forCellReuseIdentifier: "cell")
         table.isHidden = true
         table.tableHeaderView = UIView()
         return table
     }()
+    
+    private lazy var activityIndicator = LoadingIndicator(scrollView: tableView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
     
     private lazy var openingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
@@ -51,13 +40,22 @@ final class CharacterListViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Heros"
         setupLayouts()
-        activityIndicator = LoadingIndicator(scrollView: tableView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
-        APIManager.shared.requestForCharacterList(sender: self, selector: #selector(response(data:)), offset: "\(offSet)")
+        getList(String(self.offSet))
     }
     
-    @objc func response(data: Any) {
-        if let response = data as? CharacterListResponseModel {
-            self.data += response.data.results
+    private func getList(_ list: String) {
+        data.fetchChracters(offSet: "\(list)") { (success) in
+            if success {
+                  DispatchQueue.main.async { [weak self] in
+                    self?.offSet += 30
+                    self?.tableView.reloadData()
+                    self?.activityIndicator.stop()
+                    self?.openingIndicator.stopAnimating()
+                        if let empty = self?.data.characterData.isEmpty {
+                        self?.tableView.isHidden = empty
+                    }
+                }
+            }
         }
     }
 }
@@ -80,17 +78,18 @@ extension CharacterListViewController {
 //MARK: - TableViewDelegate Methods
 extension CharacterListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return data.characterData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
-        cell.data = self.data[indexPath.item]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
+        cell.data = self.data.characterData[indexPath.item]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = CharacterDetailBuilder().build(result: self.data.characterData[indexPath.item])
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -100,8 +99,7 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         activityIndicator.start {
             DispatchQueue.global(qos: .utility).async {
-                self.offSet += 30
-                APIManager.shared.requestForCharacterList(sender: self, selector: #selector(self.response(data:)), offset: "\(self.offSet)")
+                self.getList(String(self.offSet))
             }
         }
     }

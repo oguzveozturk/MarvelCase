@@ -9,13 +9,13 @@
 import UIKit
 import Kingfisher
 
-final class TableViewCell: UITableViewCell {
-    
+final class CharacterTableViewCell: UITableViewCell {
+        
     var data: Results? {
         didSet {
             guard let data = data else { return }
-            characterNameLabel.text = data.name
-            if let url = URL(string: data.thumbnail.path + "/portrait_small." + data.thumbnail.extension) {
+            nameLabel.text = data.name
+            if let url = URL(string: (data.thumbnail?.path ?? "") + ImageSizes.small + (data.thumbnail?.extension ?? "")) {
                 photo.kf.setImage(with: url, options: [ .scaleFactor(UIScreen.main.scale), .transition(.fade(0.4)), .cacheOriginalImage])
             }
         }
@@ -31,21 +31,12 @@ final class TableViewCell: UITableViewCell {
         return iv
     }()
     
-    lazy var characterNameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Avenir-Black", size: 16)
+        label.font = UIFont(name: Fonts.AvenirMedium, size: 16)
         label.textColor = .darkGray
         return label
-    }()
-    
-    lazy var favButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "star"), for: .normal)
-        button.backgroundColor = .white
-        button.imageEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
-        return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -59,18 +50,12 @@ final class TableViewCell: UITableViewCell {
             photo.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
         ])
         
-        addSubview(characterNameLabel)
+        addSubview(nameLabel)
         NSLayoutConstraint.activate([
-            characterNameLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
-            characterNameLabel.widthAnchor.constraint(lessThanOrEqualTo: self.widthAnchor, multiplier: 0.65),
-            characterNameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            characterNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50)
-        ])
-        
-        addSubview(favButton)
-        NSLayoutConstraint.activate([
-            favButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            favButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30)
+            nameLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
+            nameLabel.widthAnchor.constraint(lessThanOrEqualTo: self.widthAnchor, multiplier: 0.65),
+            nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50)
         ])
     }
     
