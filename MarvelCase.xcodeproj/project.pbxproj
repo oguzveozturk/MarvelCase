@@ -13,6 +13,12 @@
 		121DE3BB2486432B00CD11F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 121DE3B92486432B00CD11F0 /* LaunchScreen.storyboard */; };
 		121DE3C32486449500CD11F0 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3C22486449500CD11F0 /* TableViewCell.swift */; };
 		121DE3C52486474200CD11F0 /* ChracterListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3C42486474200CD11F0 /* ChracterListBuilder.swift */; };
+		121DE3CB24864DDC00CD11F0 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3CA24864DDC00CD11F0 /* APIManager.swift */; };
+		121DE3CD24864E2B00CD11F0 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3CC24864E2B00CD11F0 /* NetworkRequest.swift */; };
+		121DE3CF24864E4A00CD11F0 /* ResponseEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3CE24864E4A00CD11F0 /* ResponseEmpty.swift */; };
+		121DE3D224864E9000CD11F0 /* CharacterListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3D124864E9000CD11F0 /* CharacterListRequest.swift */; };
+		121DE3D524864EBE00CD11F0 /* CharacterRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3D424864EBE00CD11F0 /* CharacterRequestModel.swift */; };
+		121DE3D824864EFC00CD11F0 /* CharacterListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3D724864EFC00CD11F0 /* CharacterListResponseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		121DE3BC2486432B00CD11F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		121DE3C22486449500CD11F0 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		121DE3C42486474200CD11F0 /* ChracterListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChracterListBuilder.swift; sourceTree = "<group>"; };
+		121DE3CA24864DDC00CD11F0 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		121DE3CC24864E2B00CD11F0 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		121DE3CE24864E4A00CD11F0 /* ResponseEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseEmpty.swift; sourceTree = "<group>"; };
+		121DE3D124864E9000CD11F0 /* CharacterListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListRequest.swift; sourceTree = "<group>"; };
+		121DE3D424864EBE00CD11F0 /* CharacterRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRequestModel.swift; sourceTree = "<group>"; };
+		121DE3D724864EFC00CD11F0 /* CharacterListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListResponseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 		121DE3AD2486432000CD11F0 /* MarvelCase */ = {
 			isa = PBXGroup;
 			children = (
+				121DE3C924864DB000CD11F0 /* Network */,
 				121DE3C824864CBD00CD11F0 /* Builders */,
 				121DE3C724864CB600CD11F0 /* Views */,
 				121DE3C624864CAA00CD11F0 /* Controllers */,
@@ -89,6 +102,51 @@
 				121DE3C42486474200CD11F0 /* ChracterListBuilder.swift */,
 			);
 			path = Builders;
+			sourceTree = "<group>";
+		};
+		121DE3C924864DB000CD11F0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				121DE3D924864F7B00CD11F0 /* APIManager */,
+				121DE3D324864EAA00CD11F0 /* RequestModel */,
+				121DE3D024864E7C00CD11F0 /* Request */,
+				121DE3D624864EDE00CD11F0 /* ResponseModel */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		121DE3D024864E7C00CD11F0 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				121DE3D124864E9000CD11F0 /* CharacterListRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		121DE3D324864EAA00CD11F0 /* RequestModel */ = {
+			isa = PBXGroup;
+			children = (
+				121DE3D424864EBE00CD11F0 /* CharacterRequestModel.swift */,
+			);
+			path = RequestModel;
+			sourceTree = "<group>";
+		};
+		121DE3D624864EDE00CD11F0 /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				121DE3D724864EFC00CD11F0 /* CharacterListResponseModel.swift */,
+			);
+			path = ResponseModel;
+			sourceTree = "<group>";
+		};
+		121DE3D924864F7B00CD11F0 /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				121DE3CC24864E2B00CD11F0 /* NetworkRequest.swift */,
+				121DE3CA24864DDC00CD11F0 /* APIManager.swift */,
+				121DE3CE24864E4A00CD11F0 /* ResponseEmpty.swift */,
+			);
+			path = APIManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,10 +219,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				121DE3D824864EFC00CD11F0 /* CharacterListResponseModel.swift in Sources */,
 				121DE3C32486449500CD11F0 /* TableViewCell.swift in Sources */,
 				121DE3B32486432000CD11F0 /* CharacterListViewController.swift in Sources */,
+				121DE3CF24864E4A00CD11F0 /* ResponseEmpty.swift in Sources */,
+				121DE3CB24864DDC00CD11F0 /* APIManager.swift in Sources */,
 				121DE3AF2486432000CD11F0 /* AppDelegate.swift in Sources */,
+				121DE3D524864EBE00CD11F0 /* CharacterRequestModel.swift in Sources */,
+				121DE3CD24864E2B00CD11F0 /* NetworkRequest.swift in Sources */,
 				121DE3C52486474200CD11F0 /* ChracterListBuilder.swift in Sources */,
+				121DE3D224864E9000CD11F0 /* CharacterListRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
