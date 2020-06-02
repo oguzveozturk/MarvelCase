@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class TableViewCell: UITableViewCell {
     
@@ -15,14 +16,8 @@ final class TableViewCell: UITableViewCell {
             guard let data = data else { return }
             characterNameLabel.text = data.name
             if let url = URL(string: data.thumbnail.path + "/portrait_small." + data.thumbnail.extension) {
-                    
-                do {
-                    let data = try Data(contentsOf: url)
-                    if let safeImage = UIImage(data: data) { photo.image = safeImage }
-                    
-                } catch { print(error) }
-              }
-            
+                photo.kf.setImage(with: url, options: [ .scaleFactor(UIScreen.main.scale), .transition(.fade(0.4)), .cacheOriginalImage])
+            }
         }
     }
     
@@ -30,6 +25,7 @@ final class TableViewCell: UITableViewCell {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
+        iv.backgroundColor = #colorLiteral(red: 0.8604507446, green: 0.8553362489, blue: 0.8643824458, alpha: 1)
         iv.layer.cornerRadius = 5
         iv.clipsToBounds = true
         return iv
@@ -47,6 +43,8 @@ final class TableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "star"), for: .normal)
+        button.backgroundColor = .white
+        button.imageEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
         return button
     }()
     
@@ -64,9 +62,9 @@ final class TableViewCell: UITableViewCell {
         addSubview(characterNameLabel)
         NSLayoutConstraint.activate([
             characterNameLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
-            characterNameLabel.widthAnchor.constraint(lessThanOrEqualTo: self.widthAnchor, multiplier: 0.6),
+            characterNameLabel.widthAnchor.constraint(lessThanOrEqualTo: self.widthAnchor, multiplier: 0.65),
             characterNameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            characterNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 55)
+            characterNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50)
         ])
         
         addSubview(favButton)
