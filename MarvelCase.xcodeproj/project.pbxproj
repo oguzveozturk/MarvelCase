@@ -19,6 +19,7 @@
 		121DE3D224864E9000CD11F0 /* CharacterListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3D124864E9000CD11F0 /* CharacterListRequest.swift */; };
 		121DE3D524864EBE00CD11F0 /* CharacterRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3D424864EBE00CD11F0 /* CharacterRequestModel.swift */; };
 		121DE3D824864EFC00CD11F0 /* CharacterListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3D724864EFC00CD11F0 /* CharacterListResponseModel.swift */; };
+		121DE3DE2486799300CD11F0 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3DD2486799300CD11F0 /* LoadingIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		121DE3D124864E9000CD11F0 /* CharacterListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListRequest.swift; sourceTree = "<group>"; };
 		121DE3D424864EBE00CD11F0 /* CharacterRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRequestModel.swift; sourceTree = "<group>"; };
 		121DE3D724864EFC00CD11F0 /* CharacterListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListResponseModel.swift; sourceTree = "<group>"; };
+		121DE3DD2486799300CD11F0 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		121DE3AD2486432000CD11F0 /* MarvelCase */ = {
 			isa = PBXGroup;
 			children = (
+				121DE3DA2486794D00CD11F0 /* Helpers */,
 				121DE3C924864DB000CD11F0 /* Network */,
 				121DE3C824864CBD00CD11F0 /* Builders */,
 				121DE3C724864CB600CD11F0 /* Views */,
@@ -149,6 +152,14 @@
 			path = APIManager;
 			sourceTree = "<group>";
 		};
+		121DE3DA2486794D00CD11F0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				121DE3DD2486799300CD11F0 /* LoadingIndicator.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -219,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				121DE3DE2486799300CD11F0 /* LoadingIndicator.swift in Sources */,
 				121DE3D824864EFC00CD11F0 /* CharacterListResponseModel.swift in Sources */,
 				121DE3C32486449500CD11F0 /* TableViewCell.swift in Sources */,
 				121DE3B32486432000CD11F0 /* CharacterListViewController.swift in Sources */,
