@@ -16,20 +16,18 @@ protocol CharacterDetailViewControllerDelegate:class {
 
 final class CharacterDetailViewController: UIViewController {
     
-    var characterData: CharacterResults?
+    private var characterData: CharacterResults?
     weak var delegate:CharacterDetailViewControllerDelegate?
-    let isFav:Bool!
-    
-    let generator = UISelectionFeedbackGenerator()
-    
+    private let isFav:Bool!
+    private lazy var generator = UISelectionFeedbackGenerator()
     private var data = ComicListViewModel()
-        
+    
     private lazy var favoriteAdd: UIBarButtonItem = {
         let image = #imageLiteral(resourceName: "heart").maskWithColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         let button = UIBarButtonItem(image: image.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(favAddTapped(_:)))
         return button
     }()
-
+    
     private lazy var favoriteRemove: UIBarButtonItem = {
         let image = #imageLiteral(resourceName: "heartFilled").maskWithColor(#colorLiteral(red: 1, green: 0.2545840519, blue: 0.1990211341, alpha: 1))
         let button = UIBarButtonItem(image: image.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(favRemoveTapped(_:)))
@@ -166,7 +164,7 @@ final class CharacterDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func favoriteCheck() {
+    private func favoriteCheck() {
         self.isFav ? (self.navigationItem.rightBarButtonItem = self.favoriteRemove) : (self.navigationItem.rightBarButtonItem = self.favoriteAdd)
     }
     

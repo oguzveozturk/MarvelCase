@@ -12,9 +12,7 @@ final class CharacterListViewModel: NSObject {
     
     var characterData = [CharacterResults]()
     
-    
     func fetchChracters(offSet: String, complete: @escaping (_ sucsess: Bool)->() ){
-        
         APIManager.shared.requestForCharacterList(offset: offSet) { (response, responseEmtpy) in
             if let data = response?.data.results {
                 self.characterData += data

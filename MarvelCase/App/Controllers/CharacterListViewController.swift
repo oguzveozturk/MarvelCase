@@ -11,9 +11,7 @@ import UIKit
 final class CharacterListViewController: UIViewController {
     
     private var offSet = 0
-    
     private var data: CharacterListViewModel?
-    
     private var favorites: FavoriteListViewModel?
     
     private lazy var tableView: UITableView = {
@@ -53,6 +51,18 @@ final class CharacterListViewController: UIViewController {
         super.viewDidLoad()
         setupLayouts()
         getList(self.offSet)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if self.data != nil {
+            titleView.bounds = CGRect(x: 0, y: 0, width: 100, height: 66)
+            navigationItem.titleView = titleView
+            let image = #imageLiteral(resourceName: "list").maskWithColor(.white)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(favoriteTapped(_:)))
+        } else {
+            (favorites?.favCharacters.count ?? 0) > 0 ? (navigationItem.title = "Favorites") : (navigationItem.title = "No favorite yet")
+        }
     }
     
     init(data: CharacterListViewModel?,favorites: FavoriteListViewModel) {
@@ -109,20 +119,23 @@ final class CharacterListViewController: UIViewController {
         })
     }
 }
+//MARK: - CharacterDetailViewControllerDelegate Methods
+extension CharacterListViewController: CharacterDetailViewControllerDelegate {
+    func characterDetailViewController(_ vc: UIViewController, character: CharacterResults) {
+        favorites?.addByID(character: character)
+        print(character.id!)
+        tableView.reloadData()
+    }
+    
+    func characterDetailViewController(_ deleteByID: Int) {
+        favorites?.deleteLocalStorage(deleteByID)
+        tableView.reloadData()
+    }
+}
 //MARK: - Setup Layouts
 extension CharacterListViewController {
     private func setupLayouts() {
         view.backgroundColor = .black
-        
-        if self.data != nil {
-            titleView.bounds = CGRect(x: 0, y: 0, width: 100, height: 66)
-            navigationItem.titleView = titleView
-            let image = #imageLiteral(resourceName: "list").maskWithColor(.white)
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(favoriteTapped(_:)))
-        } else {
-            navigationItem.title = "Favorites"
-        }
-        
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -134,7 +147,6 @@ extension CharacterListViewController {
         view.addSubview(openingIndicator)
     }
 }
-
 //MARK: - TableViewDelegate Methods
 extension CharacterListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -145,7 +157,6 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
         if data != nil && favorites != nil {
             cell.data = self.data?.characterData[indexPath.item]
-            
         } else {
             cell.favData = self.favorites?.favCharacters[indexPath.item]
         }
@@ -157,13 +168,7 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
         if data != nil && favorites != nil {
             var isFav = false
             guard let int = data?.characterData[indexPath.item].id, let favs = favorites?.favCharacters else { return }
-            print(favs)
-            
-            if favs.contains(where: { Int($0.id) == int }) {
-                isFav = true
-            } else {
-                isFav = false
-            }
+            favs.contains(where: { Int($0.id) == int }) ? (isFav = true) : (isFav = false)
             let vc = CharacterDetailBuilder().build(viewController: self, characterData: (self.data?.characterData[indexPath.item])!,isFav: isFav)
             navigationController?.pushViewController(vc, animated: true)
         } else if data == nil && favorites != nil {
@@ -187,7 +192,6 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let id = favorites?.favCharacters[indexPath.item].id else { return }
@@ -202,17 +206,5 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
         } else { return .none }
     }
 }
-extension CharacterListViewController: CharacterDetailViewControllerDelegate {
-    func characterDetailViewController(_ vc: UIViewController, character: CharacterResults) {
-        favorites?.addByID(character: character)
-        print(character.id!)
-        tableView.reloadData()
-    }
-    
-    func characterDetailViewController(_ deleteByID: Int) {
-        favorites?.deleteLocalStorage(deleteByID)
-        tableView.reloadData()
-    }
-    
-}
+
 

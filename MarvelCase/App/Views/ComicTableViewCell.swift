@@ -17,14 +17,14 @@ final class ComicTableViewCell: UITableViewCell {
             nameLabel.text = data.title
             dateLabel.text = "On sale date: \(data.orderedDate ?? Date())"
             if let url = URL(string: (data.thumbnail?.path ?? "") + ImageSizes.small + (data.thumbnail?.extension ?? "")) {
-                photo.kf.setImage(with: url, options: [ .scaleFactor(UIScreen.main.scale), .transition(.fade(0.4)), .cacheOriginalImage])
+                photo.kf.setImage(with: url, options: [ .scaleFactor(UIScreen.main.scale), .transition(.fade(0.3)), .cacheOriginalImage])
             }
             
             
         }
     }
     
-    lazy var photo: UIImageView = {
+    private lazy var photo: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
@@ -34,7 +34,7 @@ final class ComicTableViewCell: UITableViewCell {
         return iv
     }()
     
-    lazy var nameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: Fonts.AvenirMedium, size: 13)
@@ -42,7 +42,7 @@ final class ComicTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: Fonts.AvenirMedium, size: 11)
@@ -52,10 +52,12 @@ final class ComicTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         let selectedView = UIView()
         backgroundColor = .black
         selectedView.backgroundColor = #colorLiteral(red: 0.109942995, green: 0.109942995, blue: 0.109942995, alpha: 1)
         selectedBackgroundView = selectedView
+        
         addSubview(photo)
         NSLayoutConstraint.activate([
             photo.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
@@ -79,7 +81,6 @@ final class ComicTableViewCell: UITableViewCell {
             dateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50)
         ])
-        
     }
     
     required init?(coder: NSCoder) {

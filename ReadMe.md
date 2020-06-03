@@ -8,7 +8,7 @@ MarvelCase is an iOS app that gives you information about comic books featuring 
 
 ## Scenes
 
-<img src="https://media.giphy.com/media/j3nHUc48lQOvQQ2TFo/giphy.gif" width="677" height="375" />
+<img src="https://media.giphy.com/media/j3nHUc48lQOvQQ2TFo/giphy.gif" width="333" height="187" />
 
 ## Features
 - Uses MVVM Application Architecture
