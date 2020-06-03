@@ -13,6 +13,8 @@ class CharacterDetailViewController: UIViewController {
     
     var characterData: Results?
     
+    let persistenceManager: PersistantManager
+
     private var data = ComicListViewModel()
     
     private lazy var image: UIImageView = {
@@ -56,7 +58,7 @@ class CharacterDetailViewController: UIViewController {
         label.font = UIFont(name: Fonts.AvenirBlack, size: 20)
         label.textColor = .darkGray
         label.backgroundColor = .white
-        label.text = "Comics from the Hero"
+        label.text = "Comics from the 2005"
         label.textAlignment = .center
         return label
     }()
@@ -94,6 +96,7 @@ class CharacterDetailViewController: UIViewController {
         setupLayouts()
         getHeroImage(path: characterData?.thumbnail?.path, ext: characterData?.thumbnail?.extension)
         getList("\(characterData?.id ?? 0)")
+        saveCharacter()
     }
     
     override func viewDidLayoutSubviews() {
@@ -121,15 +124,31 @@ class CharacterDetailViewController: UIViewController {
         }
     }
     
-      init(result: Results) {
-          self.characterData = result
-          super.init(nibName: nil, bundle: nil)
+          init(result: Results,persistenceManager: PersistantManager) {
+              self.characterData = result
+              self.persistenceManager = persistenceManager
+              super.init(nibName: nil, bundle: nil)
+          }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
       }
 
-      public required init?(coder aDecoder: NSCoder) {
-          super.init(coder: aDecoder)
-          self.characterData = nil
-      }
+
+           func saveCharacter() {
+      //        let character = Character(context: persistenceManager.context)
+      //        character.name = characterData?.name
+      //        character.desc = characterData?.description
+              
+      //        data.orderedComicData.forEach{
+      //            let comic = Comic(context: persistenceManager.context)
+      //            comic.comicName = $0.title
+      //            comic.date = $0.orderedDate
+      //            comic.imageURL = $0.thumbnail?.path
+      //            character.addToComics(comic)
+      //        }
+              persistenceManager.saveContext()
+           }
 }
 
 //MARK: - TableViewDelegate Methods

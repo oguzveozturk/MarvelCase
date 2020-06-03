@@ -88,7 +88,7 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = CharacterDetailBuilder().build(result: self.data.characterData[indexPath.item])
+        let vc = CharacterDetailBuilder().build(characterData: self.data.characterData[indexPath.item], PersistantManager.shared)
         navigationController?.pushViewController(vc, animated: true)
     }
     
