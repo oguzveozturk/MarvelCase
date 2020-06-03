@@ -29,7 +29,7 @@ class LoadingIndicator {
         let size:CGFloat = 40
         let frame = CGRect(x: (scrollView.frame.width-size)/2, y: scrollView.contentSize.height + spacingFromLastCell, width: size, height: size)
         let activityIndicatorView = UIActivityIndicatorView(frame: frame)
-        activityIndicatorView.color = .black
+        activityIndicatorView.color = .red
         activityIndicatorView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
         activityIndicatorView.hidesWhenStopped = true
         scrollView.addSubview(activityIndicatorView)
@@ -41,6 +41,10 @@ class LoadingIndicator {
         return scrollView.contentSize.height < scrollView.frame.size.height
     }
 
+    func remove() {
+        activityIndicatorView?.removeFromSuperview()
+    }
+    
     func start(closure: (() -> Void)?) {
         guard let scrollView = scrollView, let activityIndicatorView = activityIndicatorView else { return }
         let offsetY = scrollView.contentOffset.y
