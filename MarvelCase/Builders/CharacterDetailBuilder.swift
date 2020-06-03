@@ -9,7 +9,7 @@
 import UIKit
 class CharacterDetailBuilder {
     
-    func build(characterData: Results,_ persistenceManager: PersistantManager) -> UIViewController {
+    func build(characterData: CharacterResults,_ persistenceManager: PersistantManager) -> UIViewController {
         let vc = CharacterDetailViewController(result: characterData, persistenceManager: persistenceManager)
         return vc
     }

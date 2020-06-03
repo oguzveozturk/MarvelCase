@@ -11,7 +11,7 @@ import Kingfisher
 
 class CharacterDetailViewController: UIViewController {
     
-    var characterData: Results?
+    var characterData: CharacterResults?
     
     let persistenceManager: PersistantManager
 
@@ -97,6 +97,8 @@ class CharacterDetailViewController: UIViewController {
         getHeroImage(path: characterData?.thumbnail?.path, ext: characterData?.thumbnail?.extension)
         getList("\(characterData?.id ?? 0)")
         saveCharacter()
+      // deleteCharacter()
+      //  getCharacterFromLocalStorage()
     }
     
     override func viewDidLayoutSubviews() {
@@ -124,7 +126,7 @@ class CharacterDetailViewController: UIViewController {
         }
     }
     
-          init(result: Results,persistenceManager: PersistantManager) {
+          init(result: CharacterResults,persistenceManager: PersistantManager) {
               self.characterData = result
               self.persistenceManager = persistenceManager
               super.init(nibName: nil, bundle: nil)
@@ -132,23 +134,37 @@ class CharacterDetailViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-      }
-
-
-           func saveCharacter() {
-              let character = Character(context: persistenceManager.context)
-              character.name = characterData?.name
-              character.desc = characterData?.description
-              
-      //        data.orderedComicData.forEach{
-      //            let comic = Comic(context: persistenceManager.context)
-      //            comic.comicName = $0.title
-      //            comic.date = $0.orderedDate
-      //            comic.imageURL = $0.thumbnail?.path
-      //            character.addToComics(comic)
-      //        }
-              persistenceManager.saveContext()
-           }
+    }
+    
+    
+    func saveCharacter() {
+        let character = Character(context: persistenceManager.context)
+        character.name = characterData?.name
+        character.desc = characterData?.description
+        character.imageURL = characterData?.thumbnail?.path
+        character.imageExt = characterData?.thumbnail?.extension
+        guard let int = characterData?.id else { return }
+        character.id = Int64(int)
+        persistenceManager.saveContext()
+    }
+    
+    func getCharacterFromLocalStorage() {
+        let characters = persistenceManager.fetch(Character.self)
+        characters.forEach {
+            print($0.name!)
+        }
+    }
+    
+    func deleteCharacter() {
+        let characters = persistenceManager.fetch(Character.self)
+        guard let int = characterData?.id else { return }
+        characters.forEach {
+            if $0.id == Int64(int) {
+                persistenceManager.context.delete($0)
+            }
+        }
+        persistenceManager.saveContext()
+    }
 }
 
 //MARK: - TableViewDelegate Methods

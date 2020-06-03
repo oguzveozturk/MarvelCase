@@ -10,7 +10,8 @@ import Foundation
 
 final class CharacterListViewModel: NSObject {
     
-    var characterData = [Results]()
+    var characterData = [CharacterResults]()
+    
     
     func fetchChracters(offSet: String, complete: @escaping (_ sucsess: Bool)->() ){
         

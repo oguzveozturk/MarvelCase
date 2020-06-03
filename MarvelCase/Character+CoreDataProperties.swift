@@ -19,5 +19,8 @@ extension Character {
 
     @NSManaged public var name: String?
     @NSManaged public var desc: String?
+    @NSManaged public var id: Int64
+    @NSManaged public var imageURL: String?
+    @NSManaged public var imageExt: String?
 
 }

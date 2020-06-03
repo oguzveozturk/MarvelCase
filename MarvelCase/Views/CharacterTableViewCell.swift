@@ -11,11 +11,21 @@ import Kingfisher
 
 final class CharacterTableViewCell: UITableViewCell {
         
-    var data: Results? {
+    var data: CharacterResults? {
         didSet {
             guard let data = data else { return }
             nameLabel.text = data.name
             if let url = URL(string: (data.thumbnail?.path ?? "") + ImageSizes.small + (data.thumbnail?.extension ?? "")) {
+                photo.kf.setImage(with: url, options: [ .scaleFactor(UIScreen.main.scale), .transition(.fade(0.4)), .cacheOriginalImage])
+            }
+        }
+    }
+    
+    var favData: Character? {
+        didSet {
+            guard let data = favData else { return }
+            nameLabel.text = data.name
+            if let url = URL(string: (data.imageURL ?? "") + ImageSizes.small + (data.imageExt ?? "")) {
                 photo.kf.setImage(with: url, options: [ .scaleFactor(UIScreen.main.scale), .transition(.fade(0.4)), .cacheOriginalImage])
             }
         }
