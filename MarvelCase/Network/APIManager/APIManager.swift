@@ -13,18 +13,18 @@ final class APIManager: NSObject {
     
     func errorHandling(errorCode: Int? = 0, errorDescription: String? = NSLocalizedString("DefaultErrorDescription", comment: "")) {
         if errorCode == 403 {
-//            AppUtils.shared.showAlertWithTitle(title: "Login Error" + "Code: \(errorCode!)", message: errorDescription)
+            
         }
         else if errorCode == 401 {
-//            AppUtils.shared.showAlertWithTitle(title: "Wrong Request" + "Code: \(errorCode!)", message: errorDescription)
+            
         }
         else {
-//            AppUtils.shared.showAlertWithTitle(title: NSLocalizedString("DefaultErrorTitle", comment: "") + "Code: \(errorCode!)", message: errorDescription)
+            
         }
     }
     
     func requestForCharacterList(offset:String, complete: @escaping (_ chracterList: CharacterListResponseModel?,_ empty: ResponseEmpty?)->() ){
-    
+        
         let reqM = CharacterRequestModel()
         let req = CharacterListRequest()
         
@@ -34,7 +34,6 @@ final class APIManager: NSObject {
             do {
                 if let response = model {
                     let data = try JSONDecoder().decode(CharacterListResponseModel.self, from: response.data)
-               //     _ = sender?.perform(selector, with: data)
                     complete(data,nil)
                 }
                 else if errorTuple != nil {
@@ -52,7 +51,7 @@ final class APIManager: NSObject {
                 }
                 else if let empty = empty {
                     let data = try JSONDecoder().decode(ResponseEmpty.self, from: empty.data)
-             //       _ = sender?.perform(selector, with: data)
+                    //       _ = sender?.perform(selector, with: data)
                     complete(nil,data)
                 }
                 else {
@@ -66,23 +65,22 @@ final class APIManager: NSObject {
     }
     
     func requestForComicList(characterID:String, complete: @escaping (_ chracterList: ComicListResponseModel?,_ empty: ResponseEmpty?)->() ){
-
+        
         let reqM = ComicRequestModel()
         let req = ComicListRequest()
         
         req.endpoint = req.endpoint + "\(characterID)/comics?&limit=10&offset=0"
-
+        
         req.send(httpMethod: "GET", reqM: reqM) { (model, errorTuple, empty) in
             do {
                 if let response = model {
                     let data = try JSONDecoder().decode(ComicListResponseModel.self, from: response.data)
-                 //   _ = sender?.perform(selector, with: data)
                     complete(data,nil)
-
+                    
                 }
                 else if errorTuple != nil {
                     let error = errorTuple?.0
-
+                    
                     guard error == nil else {
                         let errResponse = errorTuple?.1
                         if let data = errResponse?.data(using: String.Encoding.utf8) {
@@ -95,48 +93,8 @@ final class APIManager: NSObject {
                 }
                 else if let empty = empty {
                     let data = try JSONDecoder().decode(ResponseEmpty.self, from: empty.data)
-               //     _ = sender?.perform(selector, with: data)
                     complete(nil,data)
-
-                }
-                else {
-                    self.errorHandling()
-                }
-            }
-            catch {
-                self.errorHandling()
-            }
-        }
-    }
-    
-    func requestForTEST(sender: AnyObject?, selector: Selector?) {
-        
-        let reqM = CharacterRequestModel()
-        let req = CharacterListRequest()
-        
-        req.send(httpMethod: "POST", reqM: reqM) { (model, errorTuple, empty) in
-            
-            do {
-                if let response = model {
-                    let data = try JSONDecoder().decode(CharacterListResponseModel.self, from: response.data)
-                    _ = sender?.perform(selector, with: data)
-                }
-                else if errorTuple != nil {
-                    let error = errorTuple?.0
                     
-                    guard error == nil else {
-                        let errResponse = errorTuple?.1
-                        if let data = errResponse?.data(using: String.Encoding.utf8) {
-                            let errorResult = try JSONDecoder().decode(CharacterListResponseError.self, from: data)
-                            self.errorHandling(errorCode: errorResult.errorCode, errorDescription: errorResult.errorDescription)
-                        }
-                        return
-                    }
-                    self.errorHandling()
-                }
-                else if let empty = empty {
-                    let data = try JSONDecoder().decode(ResponseEmpty.self, from: empty.data)
-                    _ = sender?.perform(selector, with: data)
                 }
                 else {
                     self.errorHandling()

@@ -18,7 +18,7 @@ final class PersistantManager {
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
 
-        let container = NSPersistentContainer(name: "coreDataCodes")
+        let container = NSPersistentContainer(name: "CharacterModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
 
@@ -32,16 +32,28 @@ final class PersistantManager {
 
     // MARK: - Core Data Saving support
     func saveContext () {
-        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
-                print("saved")
             } catch {
 
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+    
+    func fetch<T:NSManagedObject>(_ objectType:T.Type) -> [T] {
+        let entityName = String(describing: objectType)
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        
+        do {
+            let fetchedObject = try context.fetch(fetchRequest) as? [T]
+            return fetchedObject ?? [T]()
+        } catch {
+            print(error)
+            return [T]()
         }
     }
 }

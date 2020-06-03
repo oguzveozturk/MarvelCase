@@ -37,8 +37,7 @@ class NetworkRequest<ReqM: Codable, RM: Codable>: Request {
             
             var request = URLRequest(url: url)
             request.httpMethod = httpMethod
-       //     request.setValue(token, forHTTPHeaderField: "Authorization")
-            //
+
             print(request)
             let session = URLSession(configuration: .default)
             var task: URLSessionDataTask?
@@ -70,11 +69,13 @@ class NetworkRequest<ReqM: Codable, RM: Codable>: Request {
     }
     
     func hasInternet() -> Bool {
-        //        if !(NetworkReachabilityManager()?.networkReachabilityStatus != .notReachable && NetworkReachabilityManager()?.networkReachabilityStatus != .unknown) {
-        //            // NotificationCenter.default.post(name: Notification.Name(Constants().obs_noInternetConnection), object: nil)
-        //            return false
-        //        }
-        return true
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            return true
+        }else{
+            print("Internet Connection not Available!")
+            return false
+        }
     }
     
     func createURLString() {

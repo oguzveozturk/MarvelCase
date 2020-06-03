@@ -17,10 +17,10 @@ struct CharacterData: Codable {
     let limit: Int
     let total: Int
     let count: Int
-    let results: [Results]
+    let results: [CharacterResults]
 }
 
-struct Results: Codable {
+struct CharacterResults: Codable {
     let id: Int?
     let name: String?
     let description: String?
