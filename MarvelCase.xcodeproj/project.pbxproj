@@ -31,6 +31,9 @@
 		121DE3F2248703E000CD11F0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE3F1248703E000CD11F0 /* Constants.swift */; };
 		121DE41D2487A2AC00CD11F0 /* PersistantManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE41C2487A2AC00CD11F0 /* PersistantManager.swift */; };
 		121DE41F2487A4D000CD11F0 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 121DE41E2487A4D000CD11F0 /* ReadMe.md */; };
+		121DE4222487A5AE00CD11F0 /* CharacterModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 121DE4202487A5AE00CD11F0 /* CharacterModel.xcdatamodeld */; };
+		121DE4252487A61600CD11F0 /* Character+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE4232487A61600CD11F0 /* Character+CoreDataClass.swift */; };
+		121DE4262487A61600CD11F0 /* Character+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121DE4242487A61600CD11F0 /* Character+CoreDataProperties.swift */; };
 		9BF57387D8E4877FE12841BF /* Pods_MarvelCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B568D4559AAC471CB4CB8C81 /* Pods_MarvelCase.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +64,9 @@
 		121DE3F1248703E000CD11F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		121DE41C2487A2AC00CD11F0 /* PersistantManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistantManager.swift; sourceTree = "<group>"; };
 		121DE41E2487A4D000CD11F0 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = SOURCE_ROOT; };
+		121DE4212487A5AE00CD11F0 /* CharacterModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CharacterModel.xcdatamodel; sourceTree = "<group>"; };
+		121DE4232487A61600CD11F0 /* Character+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+CoreDataClass.swift"; sourceTree = "<group>"; };
+		121DE4242487A61600CD11F0 /* Character+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B568D4559AAC471CB4CB8C81 /* Pods_MarvelCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarvelCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0D4D064884456072C32D27B /* Pods-MarvelCase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelCase.debug.xcconfig"; path = "Target Support Files/Pods-MarvelCase/Pods-MarvelCase.debug.xcconfig"; sourceTree = "<group>"; };
 		F8674615A25B5DA0FD515357 /* Pods-MarvelCase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelCase.release.xcconfig"; path = "Target Support Files/Pods-MarvelCase/Pods-MarvelCase.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +118,7 @@
 				121DE3B92486432B00CD11F0 /* LaunchScreen.storyboard */,
 				121DE3BC2486432B00CD11F0 /* Info.plist */,
 				121DE41E2487A4D000CD11F0 /* ReadMe.md */,
+				121DE4202487A5AE00CD11F0 /* CharacterModel.xcdatamodeld */,
 			);
 			path = MarvelCase;
 			sourceTree = "<group>";
@@ -219,6 +226,8 @@
 		121DE41B2487A29000CD11F0 /* PersistantManager */ = {
 			isa = PBXGroup;
 			children = (
+				121DE4232487A61600CD11F0 /* Character+CoreDataClass.swift */,
+				121DE4242487A61600CD11F0 /* Character+CoreDataProperties.swift */,
 				121DE41C2487A2AC00CD11F0 /* PersistantManager.swift */,
 			);
 			path = PersistantManager;
@@ -357,12 +366,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				121DE3DE2486799300CD11F0 /* LoadingIndicator.swift in Sources */,
+				121DE4222487A5AE00CD11F0 /* CharacterModel.xcdatamodeld in Sources */,
 				121DE3E024869A3D00CD11F0 /* CharacterDetailViewController.swift in Sources */,
 				121DE3D824864EFC00CD11F0 /* CharacterListResponseModel.swift in Sources */,
 				121DE3E42486A32E00CD11F0 /* ComicListRequest.swift in Sources */,
 				121DE3ED2486D21900CD11F0 /* CharacterListViewModel.swift in Sources */,
 				121DE3C32486449500CD11F0 /* CharacterTableViewCell.swift in Sources */,
 				121DE3EA2486C9B200CD11F0 /* ComicTableViewCell.swift in Sources */,
+				121DE4252487A61600CD11F0 /* Character+CoreDataClass.swift in Sources */,
 				121DE3B32486432000CD11F0 /* CharacterListViewController.swift in Sources */,
 				121DE3EF2486E86100CD11F0 /* ComicListViewModel.swift in Sources */,
 				121DE3CF24864E4A00CD11F0 /* ResponseEmpty.swift in Sources */,
@@ -371,6 +382,7 @@
 				121DE3E22486A31200CD11F0 /* ComicListResponseModel.swift in Sources */,
 				121DE41D2487A2AC00CD11F0 /* PersistantManager.swift in Sources */,
 				121DE3AF2486432000CD11F0 /* AppDelegate.swift in Sources */,
+				121DE4262487A61600CD11F0 /* Character+CoreDataProperties.swift in Sources */,
 				121DE3D524864EBE00CD11F0 /* CharacterRequestModel.swift in Sources */,
 				121DE3F2248703E000CD11F0 /* Constants.swift in Sources */,
 				121DE3CD24864E2B00CD11F0 /* NetworkRequest.swift in Sources */,
@@ -570,6 +582,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		121DE4202487A5AE00CD11F0 /* CharacterModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				121DE4212487A5AE00CD11F0 /* CharacterModel.xcdatamodel */,
+			);
+			currentVersion = 121DE4212487A5AE00CD11F0 /* CharacterModel.xcdatamodel */;
+			path = CharacterModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 121DE3A32486432000CD11F0 /* Project object */;
 }

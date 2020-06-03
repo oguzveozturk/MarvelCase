@@ -136,9 +136,9 @@ class CharacterDetailViewController: UIViewController {
 
 
            func saveCharacter() {
-      //        let character = Character(context: persistenceManager.context)
-      //        character.name = characterData?.name
-      //        character.desc = characterData?.description
+              let character = Character(context: persistenceManager.context)
+              character.name = characterData?.name
+              character.desc = characterData?.description
               
       //        data.orderedComicData.forEach{
       //            let comic = Comic(context: persistenceManager.context)
